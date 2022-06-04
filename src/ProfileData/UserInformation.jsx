@@ -1,27 +1,31 @@
 
+import {useState} from 'react';
+import ReactHowler from 'react-howler';
 
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
 const UserInformation = () => {
- return (
-  <Container>
-   Hola
-  </Container>
+  const[play,setPlay]=useState(false)
+  const[color,setColor]=useState('red')
+
+  function playCoin(){
+    setPlay(true)
+    setColor('blue')
+  }
+  function pauseCoin(){
+    setPlay(false)
+    setColor('red')
+  }
+ return (<>
+  <ReactHowler
+  src='http://www.sonidosmp3gratis.com/sounds/mario-coin.mp3'
+  playing={play}
+  loop={false}
+  
+/>
+<button onClick={playCoin}>Play</button>
+<button onClick={pauseCoin}>Pause</button>
+<div style={{background:color}}>hola</div>
+</>
  )
 }
 export default UserInformation
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
 
-  to {
-    transform: rotate(360deg);
-  }
-`
-const Container = styled.div`
-    display: inline-block;
-  animation: ${rotate} 2s linear infinite;
-  padding: 2rem 1rem;
-  font-size: 1.2rem;
-`

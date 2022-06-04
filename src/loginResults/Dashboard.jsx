@@ -1,17 +1,27 @@
 import styled, {keyframes} from 'styled-components';
 import {NavLink} from 'react-router-dom';
+import { useState } from 'react';
 import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine} from 'react-icons/ri'
-import '../App.css'
+
+import '../App.css';
 
 function Dashboard(){
-    
+    const[name,setName]=useState('')
 
+    function mensajes(){
+        setName('entrada')       
+    }
+    function vacio(){
+        setName('vacio')
+    }
     return(
     <>
     <Navigator>
         <h2>User Menu</h2>
         <div>
-          <NavLink  to='/profile'> <p>Profile</p></NavLink> 
+          <NavLink  to='/profile'> 
+         
+          <p>Profile</p></NavLink> 
           <NavLink to='/info' > <p>Personal Data</p></NavLink> 
         </div>
     </Navigator>
@@ -25,14 +35,15 @@ function Dashboard(){
             padre
             <div className='child'> 
                 Carpetas
-                <button type='submit'> <RiMailLine />bandeja de entrada</button>
+                <button type='submit' onClick={mensajes}> <RiMailLine />bandeja de entrada</button>
                 <button type='submit'> <RiFolderForbidFill/>correo no deseado</button>
                 <button type='submit'><RiSendPlane2Line/> mensajes enviados</button>
                 <button type='submit'><RiStackLine/>borradores</button>
-                <button type='submit'><RiDeleteBin6Line/> elementos eliminados</button>    
+                <button type='submit' onClick={vacio}><RiDeleteBin6Line/> elementos eliminados</button>    
             </div>
             <div className='mensajes'>
-                holas
+                {name === 'entrada' && <p>hola</p>}
+                {name === 'vacio' && <p>sin mensaje</p>}
             </div>
         </div>
 

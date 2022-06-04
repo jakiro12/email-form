@@ -2,6 +2,8 @@ import  { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useDispatch} from "react-redux";
 import { loginUser } from "./Reducers/time";
+
+
 import "./App.css";
 
 function Form() {
@@ -9,6 +11,7 @@ function Form() {
   const navigate = useNavigate()
   const[login,setLogin]=useState('')
   const[contra,setContra]=useState('')
+ 
   
  
    //if(login === 'hola' ) setLogin('hola gente') ejemplo de condicional sin necesidad de funcion
@@ -17,8 +20,10 @@ function Form() {
     e.preventDefault();
     const hi= e.target.saludo.value //target. nombre del input . value
     const ingresa= e.target.pass.value // los mismo pero para le password
+    
     getIn(hi,ingresa) 
     dispatch(loginUser({name:hi}))
+    
   }
   const getIn=(hello,dataPass)=>{
     let email= 'lautaro@hotmail.com'
@@ -38,6 +43,7 @@ function Form() {
        
   return (
     <div className="container">
+  
       <div>
         <p>Valid email:lautaro@hotmail.com</p>
         <p>Valid Password: 1234</p>
