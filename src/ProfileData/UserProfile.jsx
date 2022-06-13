@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 function UserProfile(){
-    const user = useSelector((state)=>state.primeReducer.value)
+    const user = useSelector((state)=>state.primeReducer.email) //busca en el initialState del Slice
     return(<>
        <Section >        
             <DivProfile className="portada">    
@@ -17,7 +17,7 @@ function UserProfile(){
             </div>
             <div className="perfil-usuario-footer">
                 <ul className="lista-datos">
-                    <li><i className="icono fas fa-map-signs"></i> Direccion de usuario:{user.name}</li>
+                    <li><i className="icono fas fa-map-signs"></i> Direccion de usuario:{user.hi}</li>
                     <li><i className="icono fas fa-phone-alt"></i> Telefono: 342-4123456</li>
                     <li><i className="icono fas fa-briefcase"></i> Trabaja en: AWS</li>
                     <li><i className="icono fas fa-building"></i> Cargo: Junior Developer</li>
@@ -26,7 +26,7 @@ function UserProfile(){
                     <li><i className="icono fas fa-map-marker-alt"></i> Ubicacion: Argentina</li>
                     <li><i className="icono fas fa-calendar-alt"></i> Fecha nacimiento: 29/03/1993</li>
                     <li><i className="icono fas fa-user-check"></i> Registro.</li>
-                    <li><i className="icono fas fa-share-alt"></i> Redes sociales.</li>
+                    <li><i className="icono fas fa-share-alt"></i> <a href="https://www.facebook.com">Redes sociales.</a></li>
                 </ul>
             </div>
           
@@ -57,7 +57,7 @@ const Section = styled.section`
     }
 `
 const DivProfile= styled.div`
- background: #1414f1b7;
+ background: linear-gradient(to right, hsl(240, 70%, 50%),hsl(240,10%,40%));
  display: flex;
   width: 900px;
   height: 300px;

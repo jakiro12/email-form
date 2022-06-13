@@ -1,18 +1,37 @@
 import styled, {keyframes} from 'styled-components';
 import {NavLink} from 'react-router-dom';
 import { useState } from 'react';
-import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine} from 'react-icons/ri'
+import { useNavigate } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
+import { dashboard} from '../Reducers/time';
+import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine,RiGitRepositoryCommitsFill} from 'react-icons/ri'
 
 import '../App.css';
 
 function Dashboard(){
-    const[name,setName]=useState('')
-
+    const[option,setOption]=useState('')
+    const msgSend=useSelector((state)=>state.primeReducer.name)
+    const newMessage = useSelector((state)=>state.primeReducer.mensaje)
+    const dispatch=useDispatch()
+    let navigate= useNavigate()
     function mensajes(){
-        setName('entrada')       
+        setOption('entrada')       
     }
     function vacio(){
-        setName('vacio')
+        setOption('empty')
+        dispatch(dashboard({option}))
+    }
+    function spam(){
+        setOption('no deseado')
+    }
+    function send(){
+        setOption('enviado')
+    }
+    function noSend(){
+        setOption('borrados')
+    }
+    function completeNewMsg(){
+        navigate('/new')
     }
     return(
     <>
@@ -32,18 +51,36 @@ function Dashboard(){
             <div className="carga"></div>
             </div>
         <div className='emailsf'>
-            padre
+           <div className='sendbutton'> <ButtonMsg  onClick={completeNewMsg}> <RiGitRepositoryCommitsFill/>  Nuevo Mensaje</ButtonMsg>
+           </div>
             <div className='child'> 
                 Carpetas
-                <button type='submit' onClick={mensajes}> <RiMailLine />bandeja de entrada</button>
-                <button type='submit'> <RiFolderForbidFill/>correo no deseado</button>
-                <button type='submit'><RiSendPlane2Line/> mensajes enviados</button>
-                <button type='submit'><RiStackLine/>borradores</button>
+                <button type='submit' onClick={mensajes}> <RiMailLine />  bandeja de entrada</button>
+                <button type='submit' onClick={spam}> <RiFolderForbidFill/>  correo no deseado</button>
+                <button type='submit'onClick={send}><RiSendPlane2Line/>  mensajes enviados</button>
+                <button type='submit' onClick={noSend}><RiStackLine/>  borradores</button>
                 <button type='submit' onClick={vacio}><RiDeleteBin6Line/> elementos eliminados</button>    
             </div>
             <div className='mensajes'>
-                {name === 'entrada' && <p>hola</p>}
-                {name === 'vacio' && <p>sin mensaje</p>}
+                {option === 'entrada' && <section>
+                    <p>   mensaje 1:{newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p>mensaje 2 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p>mensaje 1 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p>mensaje 1 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    </section>}
+                {option === 'empty' && <p>{msgSend.option} </p>}
+                {option === 'no deseado' && <section>
+                    <p>spam 1</p>
+                    <p>spam 2</p>
+                    <p>spam 1</p>
+                    <p>spam 1</p>
+                    <p>spam 3</p>
+                    <p>spam 3</p>
+                    </section>}
+                {option === 'enviado' && <p>Mensaje enviado</p>}
+                {option === 'borrados' && <p>Mensaje no enviado</p>}
             </div>
         </div>
 
@@ -54,10 +91,11 @@ export default Dashboard
 
 const Navigator = styled.nav`
 height: 60px;
-background-color: #25d855;
+background: linear-gradient(180deg,#25d855,#fff);
 display: flex;
 align-items: center;
-border: 2px solid black;
+
+border: transparent;
 border-radius: 15px 0 15px 0;
     h2{
         font-weight: 200;
@@ -88,7 +126,7 @@ const rotate= keyframes`
 const Welcome = styled.div`
     display: grid;
     align-items: center;
-  background-color: blueviolet;
+  background-color: #fff;
   font-size: 50px ;
   text-align:  center;
   height: 100vh;
@@ -121,14 +159,14 @@ const Welcome = styled.div`
            position: absolute;
            top: 0;
            display: grid;
-         
+           
        }
        
-       button{
+    .child >  button{
            border-radius: 3px;
            background: #beb4b4;
-           font-size: 17px;
-          
+           font-size: 19px;
+            
        }
        .mensajes{
            outline: 2px solid black;
@@ -137,4 +175,42 @@ const Welcome = styled.div`
            left: 250px;
            height: 342px;
        }
+       .mensajes >section {
+          
+          color: black;         
+         }
+       p{ //la estiqueta p trae por defecto su propio pading y margin por eso genera espacios en el section
+            border-bottom: 1px solid black;
+            margin: 0;
+            padding: 0;
+            height: 56px;
+            text-align: start;
+            text-indent: 10px;  //sangria en textos
+            font-size: 44px; 
+        }
+        .sendbutton{
+            height: 58px;
+            background: none;
+            margin-left: 250px;
+        }
+        
+`
+const ButtonMsg=styled.button` 
+    border: none;
+    background: none;
+    position: absolute;
+    top: 15px;
+    left: 260px;
+    color: #000000;
+    height: 30px;
+    width: 250px;
+    font-size: 25px;
+    &:hover {
+        cursor: pointer;
+        background-image: linear-gradient(90deg, #06beb6, #48b1bf);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
 `

@@ -22,11 +22,11 @@ function Form() {
     const ingresa= e.target.pass.value // los mismo pero para le password
     
     getIn(hi,ingresa) 
-    dispatch(loginUser({name:hi}))
+    dispatch(loginUser({hi}))
     
   }
   const getIn=(hello,dataPass)=>{
-    let email= 'lautaro@hotmail.com'
+    let email= 'lautaro@'
     let validPassword= '1234'
       
     if( hello === email && dataPass === validPassword  ) navigate('/page')

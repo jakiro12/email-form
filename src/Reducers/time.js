@@ -1,19 +1,26 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-const firstState={name:'newUser'}
+
 
 const sliceName= createSlice({
     name:'names',
-    initialState:{value:firstState},
+    initialState:{name:'vacio',email:'',mensaje:''},
     reducers:{
-        loginUser:(state,action)=>{
-            state.value=action.payload
+        loginUser:(state,action)=>{           
+        return  {...state,email:action.payload}
         },
         dashboard:(state,action)=>{
-            state.value= firstState
+        return  { ...state,   name: action.payload} // aasi clono el estado inicial
         },
+        msgcontroller:(state,action)=>{
+            let arr=[]
+            return{...state, mensaje:arr.concat(action.payload)}
+        }
+                
+        
+
     }
 })
-export const {loginUser,dashboard}=sliceName.actions;
+export const {loginUser,dashboard,msgcontroller}=sliceName.actions;
 
 export default sliceName.reducer;

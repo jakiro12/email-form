@@ -31,6 +31,10 @@ html, body, #root{
   justify-content: center;
   width: 70px;
   margin-left: 40%;
+  border: none;
+  background: gray;
+  color: white;
+  border-radius: 3px;
 }
 .father{
   background-color: blue;  
@@ -40,9 +44,15 @@ html, body, #root{
   display: grid;  
   align-items: center;
   justify-content: center;
-  background-color: blueviolet;
+  background-color: #fff;
   font-size: 50px ;
   text-align:  center;
   grid-auto-rows: 100px;
   height: 100vh;
+}
+input{
+  border: none;
+  border-bottom: 1px solid rgb(82, 66, 66);
+  margin-bottom: 10px;
+  border-radius: 3px;
 }
