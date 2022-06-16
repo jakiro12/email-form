@@ -14,14 +14,14 @@ function Dashboard(){
     const newMessage = useSelector((state)=>state.primeReducer.mensaje)
     const dispatch=useDispatch()
     let navigate= useNavigate()
-    function mensajes(){
+    function mensajes(){ //bandeja de entrada
         setOption('entrada')       
     }
-    function vacio(){
+    function vacio(){ //elementos eliminados-- se lanza el valor previo del useState al segundo click arroja empty
         setOption('empty')
         dispatch(dashboard({option}))
     }
-    function spam(){
+    function spam(){ // correo no deseado 
         setOption('no deseado')
     }
     function send(){
@@ -70,7 +70,7 @@ function Dashboard(){
                     <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
                     <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
                     </section>}
-                {option === 'empty' && <p>{msgSend.option} </p>}
+                {option === 'empty' && <p>{msgSend.option}</p>}
                 {option === 'no deseado' && <section>
                     <p>spam 1</p>
                     <p>spam 2</p>
@@ -166,6 +166,7 @@ const Welcome = styled.div`
            border-radius: 3px;
            background: #beb4b4;
            font-size: 19px;
+           cursor: pointer;
             
        }
        .mensajes{

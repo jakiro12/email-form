@@ -8,11 +8,19 @@ function NewMessage(){
     const dispatch= useDispatch()
     const navigate=useNavigate()
 
-    function mensaje(e){
+  const mensaje=(e)=>{
         e.preventDefault()
         const newMsgSend= e.target.msg.value      
-        console.log(newMsgSend)
+        console.log( JSON.stringify(newMsgSend))        
         dispatch(msgcontroller({newMsgSend}))
+      fetch('http://localhost:3001/data',{
+            method:'POST',
+            headers: {
+                "Content-Type": "application/json"
+            } ,
+            body: JSON.stringify({laut:newMsgSend}),
+        })
+            
     }
     return (<Container>    
     <ButtonsActions > 
