@@ -9,18 +9,17 @@ const conectValues={
 
 const dataBaseRequire= new Pool(conectValues)
 
-const prueba=async()=>{
-try{{   const res= await dataBaseRequire.query('SELECT * FROM users');
-    console.log(res.rows)}
+const allDataMsg=async()=>{
+   const response= await dataBaseRequire.query('SELECT * FROM inbox');
+    //console.log(res.rows)    
+    return response.rows
 }
-catch(e){
-    console.log(e)
-}}
 
 
-const putEmails=async()=>{
+
+const putEmails=async(email,pass)=>{
    try{ const text= 'INSERT INTO users (email,password) VALUES($1,$2)'
-    const newSing= ['elias','1234']
+    const newSing= [email,pass]
     const res=  await dataBaseRequire.query(text,newSing)
     console.log(res.command)}
     catch(e){
@@ -38,5 +37,20 @@ const deleteColumn= async()=>{
         console.log(e)
     }
 }
+const putMsg=async(adress,subject,bodycontent)=>{
+    try{ const text= 'INSERT INTO inbox  VALUES($1,$2,$3)'
+     const newSend= [adress,subject,bodycontent]
+     const res=  await dataBaseRequire.query(text,newSend) // comando de query luego el valor
+     console.log(res.command)
+    
+    }
+     catch(e){
+         console.log(e)
+     }
+ }
+allDataMsg()
 
-prueba()
+module.exports={
+    putMsg,
+    allDataMsg
+}

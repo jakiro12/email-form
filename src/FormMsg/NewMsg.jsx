@@ -7,18 +7,25 @@ function NewMessage(){
     const[msg,setMsg]=useState('')
     const dispatch= useDispatch()
     const navigate=useNavigate()
+    const[bodyMsg,setBodyMsg]=useState('')
+    const[emailSubject,setEmailSubject]=useState('')
 
   const mensaje=(e)=>{
         e.preventDefault()
-        const newMsgSend= e.target.msg.value      
-        console.log( JSON.stringify(newMsgSend))        
+        const newMsgSend= e.target.msg.value    // tambien se puede traer el valor con el name:"" del input
+        console.log( newMsgSend) 
+        const allData={
+            destination:msg,
+            subject: emailSubject,
+            bodyText:bodyMsg
+        }       
         dispatch(msgcontroller({newMsgSend}))
       fetch('http://localhost:3001/data',{
             method:'POST',
             headers: {
                 "Content-Type": "application/json"
             } ,
-            body: JSON.stringify({laut:newMsgSend}),
+            body: JSON.stringify({laut:allData}),
         })
             
     }
@@ -26,19 +33,19 @@ function NewMessage(){
     <ButtonsActions > 
         <Button className="proof" type="submit" form="message">enviar</Button>
         <Button >adjuntar</Button>
-        <Button >descartar</Button>
+        <Button onClick={()=>navigate('/page')}>descartar</Button>
     </ButtonsActions>
        <Formik onSubmit={mensaje} id='message'>
        <div className="for">
-            <button >Para :</button>
+            <button disabled={true} >Para :</button>
             <input  type='text' name='msg' value={msg} onChange={(e)=>setMsg(e.target.value)} >
             </input>
             </div>
             <div>
-            <input className="reason" placeholder="reason" type='text'></input>
-            <input className="text" placeholder="tema" type='text'></input>
+            <input className="reason" placeholder="reason" value={emailSubject} onChange={(e)=>setEmailSubject(e.target.value)} type='text'></input>
+            <input className="text"  placeholder="tema" value={bodyMsg} onChange={(e)=>setBodyMsg(e.target.value)} type='text'></input>
             </div>
-           
+            
 
         </Formik>
             <OutButton onClick={()=>navigate(-1)}>Salir</OutButton>
@@ -94,6 +101,7 @@ const Formik = styled.form`
         border-bottom: 1px solid gray;
         width: 98%;
         padding-left: 10px;
+        outline: none;
     }
     button{
         height: 4vh;
@@ -110,8 +118,7 @@ const Formik = styled.form`
     }
     .text{
         border-bottom: none;
-        height: 280px;  
-        outline: none;
+         
         
     }    
 `

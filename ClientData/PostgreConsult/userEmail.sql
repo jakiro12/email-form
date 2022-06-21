@@ -9,3 +9,9 @@ INSERT INTO users VALUES(
     '1234'
 );
 SELECT * FROM users;
+
+CREATE TABLE inbox(
+    addressee TEXT,
+    subject TEXT,
+    bodycontent TEXT
+)
