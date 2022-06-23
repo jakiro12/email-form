@@ -6,6 +6,7 @@ import WrongData from "./loginResults/WrongData";
 import UserInformation from "./ProfileData/UserInformation";
 import UserProfile from "./ProfileData/UserProfile";
 import NewMessage from "./FormMsg/NewMsg";
+import Register from "./RegisterForm/Register";
 
 //si envuelvo los Route con html se rompe, por ejemplo un div
 
@@ -24,6 +25,7 @@ function App() {
      <Route path="/profile" element={<UserProfile/>}/>
      <Route path="/info" element={<UserInformation/>}/>
      <Route path="/new" element={<NewMessage/>}/>
+     <Route path="/newuser" element={<Register/>} />
      </Routes>
      </BrowserRouter>
   );

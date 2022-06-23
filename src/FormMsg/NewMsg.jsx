@@ -27,7 +27,7 @@ function NewMessage(){
             } ,
             body: JSON.stringify({laut:allData}),
         })
-            
+                    
     }
     return (<Container>    
     <ButtonsActions > 
@@ -117,9 +117,7 @@ const Formik = styled.form`
         display: grid;
     }
     .text{
-        border-bottom: none;
-         
-        
+        border-bottom: none;            
     }    
 `
 const Container= styled.div`

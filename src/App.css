@@ -32,8 +32,8 @@ html, body, #root{
   width: 70px;
   margin-left: 40%;
   border: none;
-  background: gray;
-  color: white;
+  background: #f3f2f1;
+  
   border-radius: 3px;
 }
 .father{

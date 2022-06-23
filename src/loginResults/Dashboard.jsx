@@ -1,18 +1,20 @@
 import styled, {keyframes} from 'styled-components';
 import {NavLink} from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import { dashboard} from '../Reducers/time';
 import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine,RiGitRepositoryCommitsFill} from 'react-icons/ri'
 
 import '../App.css';
+const URL='http://localhost:3001/msginbox'
 
 function Dashboard(){
     const[option,setOption]=useState('')
     const msgSend=useSelector((state)=>state.primeReducer.name)
     const newMessage = useSelector((state)=>state.primeReducer.mensaje)
     const dispatch=useDispatch()
+    const[dataMsg,setDataMsg]=useState([])
     let navigate= useNavigate()
     function mensajes(){ //bandeja de entrada
         setOption('entrada')       
@@ -33,8 +35,17 @@ function Dashboard(){
     function completeNewMsg(){
         navigate('/new')
     }
+    function dating(){
+        fetch(`${URL}`)
+        .then(response=>response.json())
+        .then(data=>setDataMsg(data))
+    }
+    useEffect(()=>{
+        dating()
+    },[])
     return(
     <>
+    {console.log(dataMsg)}
     <Navigator>
         <h2>User Menu</h2>
         <div>
@@ -51,7 +62,7 @@ function Dashboard(){
             <div className="carga"></div>
             </div>
         <div className='emailsf'>
-           <div className='sendbutton'> <ButtonMsg  onClick={completeNewMsg}> <RiGitRepositoryCommitsFill/>  Nuevo Mensaje</ButtonMsg>
+           <div className='sendbutton'> <ButtonMsg  onClick={completeNewMsg}> <RiGitRepositoryCommitsFill className='colorchange'/>  Nuevo Mensaje</ButtonMsg>
            </div>
             <div className='child'> 
                 Carpetas
@@ -63,8 +74,8 @@ function Dashboard(){
             </div>
             <div className='mensajes'>
                 {option === 'entrada' && <section>
-                    <p>   mensaje 1:{newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
-                    <p>mensaje 2 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p>   {dataMsg.length !==0 ? dataMsg[0].bodycontent : 'sin mensajes'}</p>
+                    <p>{dataMsg.length !==0 ? dataMsg[1].bodycontent : 'sin mensajes'}</p>
                     <p>mensaje 1 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
                     <p>mensaje 1 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
                     <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
@@ -79,7 +90,9 @@ function Dashboard(){
                     <p>spam 3</p>
                     <p>spam 3</p>
                     </section>}
-                {option === 'enviado' && <p>Mensaje enviado</p>}
+                {option === 'enviado' && dataMsg.map((e,i)=>{
+                    return <p key={i}>{e.bodycontent}</p>
+                })}
                 {option === 'borrados' && <p>Mensaje no enviado</p>}
             </div>
         </div>
@@ -195,6 +208,7 @@ const Welcome = styled.div`
             margin-left: 250px;
         }
         
+        
 `
 const ButtonMsg=styled.button` 
     border: none;
@@ -212,6 +226,13 @@ const ButtonMsg=styled.button`
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
+        .colorchange{
+         
+        background-image: linear-gradient(90deg, #06beb6, #48b1bf);
+      
+        
+      
     }
-
+    }
+    
 `

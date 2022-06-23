@@ -2,6 +2,7 @@ import  { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useDispatch} from "react-redux";
 import { loginUser } from "./Reducers/time";
+import styled from "styled-components";
 
 
 import "./App.css";
@@ -57,10 +58,19 @@ function Form() {
         </input>
         <input type='password' name='pass' placeholder="password" value={contra} onChange={(e)=>setContra(e.target.value)}></input>
         <button type="submit" className="boton" disabled={valor ? true : false} >Find</button>
-        {valor}        
+        {valor}   
+        <RegisterButton > Register </RegisterButton>     
       </form>
       
     </div>
   );
 }
 export default Form
+
+const RegisterButton = styled.button`
+  width: 70px;
+ margin-left: 40%;
+ background-color: #f3f2f1;
+ border-radius: 3px;
+ border: none;
+`
