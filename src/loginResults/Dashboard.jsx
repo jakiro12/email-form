@@ -41,16 +41,16 @@ function Dashboard(){
         .then(data=>setDataMsg(data))
     }
     useEffect(()=>{
+        
         dating()
     },[])
+    const newsData= dataMsg.slice(dataMsg.length-6,dataMsg.length).reverse()
     return(
     <>
-    {console.log(dataMsg)}
     <Navigator>
         <h2>User Menu</h2>
         <div>
-          <NavLink  to='/profile'> 
-         
+          <NavLink  to='/profile'>          
           <p>Profile</p></NavLink> 
           <NavLink to='/info' > <p>Personal Data</p></NavLink> 
         </div>
@@ -65,7 +65,7 @@ function Dashboard(){
            <div className='sendbutton'> <ButtonMsg  onClick={completeNewMsg}> <RiGitRepositoryCommitsFill className='colorchange'/>  Nuevo Mensaje</ButtonMsg>
            </div>
             <div className='child'> 
-                Carpetas
+              <div className='foldername'><p> Carpetas</p></div> 
                 <button type='submit' onClick={mensajes}> <RiMailLine />  bandeja de entrada</button>
                 <button type='submit' onClick={spam}> <RiFolderForbidFill/>  correo no deseado</button>
                 <button type='submit'onClick={send}><RiSendPlane2Line/>  mensajes enviados</button>
@@ -90,7 +90,7 @@ function Dashboard(){
                     <p>spam 3</p>
                     <p>spam 3</p>
                     </section>}
-                {option === 'enviado' && dataMsg.map((e,i)=>{
+                {option === 'enviado' && newsData.map((e,i)=>{
                     return <p key={i}>{e.bodycontent}</p>
                 })}
                 {option === 'borrados' && <p>Mensaje no enviado</p>}
@@ -107,7 +107,6 @@ height: 60px;
 background: linear-gradient(180deg,#25d855,#fff);
 display: flex;
 align-items: center;
-
 border: transparent;
 border-radius: 15px 0 15px 0;
     h2{
@@ -127,7 +126,7 @@ border-radius: 15px 0 15px 0;
         white-space: nowrap;
     }
     div{
-        margin-left: 80%;
+        margin-left: 78%;
        display: inline-flex;
        
     }   
@@ -139,7 +138,7 @@ const rotate= keyframes`
 const Welcome = styled.div`
     display: grid;
     align-items: center;
-  background-color: #fff;
+    background-image: linear-gradient(180deg, #fff, #db750fca);
   font-size: 50px ;
   text-align:  center;
   height: 100vh;
@@ -183,14 +182,13 @@ const Welcome = styled.div`
             
        }
        .mensajes{
-           outline: 2px solid black;
-           width: 1250px;
+           
+           width: 1100px;
            position: absolute;
            left: 250px;
            height: 342px;
        }
-       .mensajes >section {
-          
+       .mensajes >section {          
           color: black;         
          }
        p{ //la estiqueta p trae por defecto su propio pading y margin por eso genera espacios en el section
@@ -206,12 +204,23 @@ const Welcome = styled.div`
             height: 58px;
             background: none;
             margin-left: 250px;
+            border-bottom: 1px solid black;
         }
-        
+        .foldername{
+            height:58px;
+        }
+       .foldername > p{
+        border: none;
+        position: absolute;        
+        left: 0;
+        right: 0;
+        top: 15px;
+        text-align: center;
+       }
         
 `
 const ButtonMsg=styled.button` 
-    border: none;
+    border: none;    
     background: none;
     position: absolute;
     top: 15px;

@@ -1,39 +1,39 @@
 import { useState } from "react";
-import { msgcontroller} from '../Reducers/time';
-import {useDispatch} from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 function NewMessage(){
     const[msg,setMsg]=useState('')
-    const dispatch= useDispatch()
+    
     const navigate=useNavigate()
     const[bodyMsg,setBodyMsg]=useState('')
     const[emailSubject,setEmailSubject]=useState('')
 
   const mensaje=(e)=>{
         e.preventDefault()
-        const newMsgSend= e.target.msg.value    // tambien se puede traer el valor con el name:"" del input
-        console.log( newMsgSend) 
+        //const newMsgSend= e.target.msg.value  --tambien se puede traer el valor con el name:"" del input
         const allData={
             destination:msg,
             subject: emailSubject,
             bodyText:bodyMsg
         }       
-        dispatch(msgcontroller({newMsgSend}))
+        
       fetch('http://localhost:3001/data',{
             method:'POST',
             headers: {
                 "Content-Type": "application/json"
             } ,
-            body: JSON.stringify({laut:allData}),
-        })
-                    
+            body: JSON.stringify({info:allData}),
+        })            
+    }
+    const noSendIt=(e)=>{
+        mensaje(e)
+        navigate('/page')
     }
     return (<Container>    
     <ButtonsActions > 
         <Button className="proof" type="submit" form="message">enviar</Button>
         <Button >adjuntar</Button>
-        <Button onClick={()=>navigate('/page')}>descartar</Button>
+        <Button onClick={noSendIt} form='message'>descartar</Button>
     </ButtonsActions>
        <Formik onSubmit={mensaje} id='message'>
        <div className="for">
@@ -42,8 +42,8 @@ function NewMessage(){
             </input>
             </div>
             <div>
-            <input className="reason" placeholder="reason" value={emailSubject} onChange={(e)=>setEmailSubject(e.target.value)} type='text'></input>
-            <input className="text"  placeholder="tema" value={bodyMsg} onChange={(e)=>setBodyMsg(e.target.value)} type='text'></input>
+            <input className="reason" placeholder="asunto" value={emailSubject} onChange={(e)=>setEmailSubject(e.target.value)} type='text'></input>
+            <input className="text"  placeholder="" value={bodyMsg} onChange={(e)=>setBodyMsg(e.target.value)} type='text'></input>
             </div>
             
 
@@ -92,7 +92,7 @@ const OutButton =styled.button`
 const Formik = styled.form`
     width: 600px;
     background: #fff;
-    outline: 2px solid black;
+    border: 2px solid black;
     height: 50vh;
     margin-left: auto;
     margin-right: auto;
@@ -102,6 +102,7 @@ const Formik = styled.form`
         width: 98%;
         padding-left: 10px;
         outline: none;
+        background: none;
     }
     button{
         height: 4vh;

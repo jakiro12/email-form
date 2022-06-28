@@ -48,9 +48,19 @@ const putMsg=async(adress,subject,bodycontent)=>{
          console.log(e)
      }
  }
-allDataMsg()
+const msgNoSendIt=async(adress,subject,bodycontent)=>{
+    try {
+            const sqlCommand= 'INSERT INTO nosend(addressee,subject,bodycontent) VALUES($1,$2,$3)'
+            const dataMsg=[adress,subject,bodycontent]
+            const res = await dataBaseRequire.query(sqlCommand,dataMsg)
+            console.log(res.command)
+        } catch (error) {
+            console.log(error)
+    }
+}
 
 module.exports={
     putMsg,
-    allDataMsg
+    allDataMsg,
+    msgNoSendIt
 }

@@ -27,7 +27,7 @@ function Form() {
     
   }
   const getIn=(hello,dataPass)=>{
-    let email= 'lautaro@'
+    let email= 'lautaro@hotmail.com'
     let validPassword= '1234'
       
     if( hello === email && dataPass === validPassword  ) navigate('/page')
@@ -58,8 +58,8 @@ function Form() {
         </input>
         <input type='password' name='pass' placeholder="password" value={contra} onChange={(e)=>setContra(e.target.value)}></input>
         <button type="submit" className="boton" disabled={valor ? true : false} >Find</button>
-        {valor}   
-        <RegisterButton > Register </RegisterButton>     
+        <DivAlert>{valor} </DivAlert>  
+        <RegisterButton onClick={()=>navigate('/newuser')} > Register </RegisterButton>     
       </form>
       
     </div>
@@ -73,4 +73,8 @@ const RegisterButton = styled.button`
  background-color: #f3f2f1;
  border-radius: 3px;
  border: none;
+`
+const DivAlert= styled.div`
+  height: 25px;
+  margin-bottom: 40px;
 `

@@ -1,7 +1,7 @@
 const express= require('express')
 const app= express()
 const cors=require('cors')
-const {putMsg,allDataMsg}= require('../consultasSQL') // esto pasa con modules exports :D
+const {putMsg,allDataMsg,msgNoSendIt}= require('../consultasSQL') // esto pasa con modules exports :D
 //middlewares-- se ejecutan antes de llegar a las rutas :D
 app.use(express.json()) //convierte datos para usar en JS
 // app.use(express.urlencoded({extended:false})) //para cuando llegan datos de un formulario los convierte a un objeto
@@ -15,15 +15,26 @@ app.get('/',(req,res)=>{
 app.post('/data',(req,res)=>{
    
    let values= datas.concat(req.body)
-    console.log(values[0].laut)
-    let manageIt=values[0].laut
-    putMsg(manageIt.destination,manageIt.subject,manageIt.bodyText)
+    console.log(values)
+    let manageIt=values
+    let information= values[0].info
+    const noDestination = manageIt.filter(e=> e.info.destination === '')
+    if(noDestination[0]){
+        msgNoSendIt(information.destination,information.subject,information.bodyText)
+    }else{
+        putMsg(information.destination,information.subject,information.bodyText)
+    }
+  //  putMsg(manageIt.destination,manageIt.subject,manageIt.bodyText)
    
 })
 app.get('/msginbox',async(req,res)=>{
     const values= await allDataMsg()
     res.json(values)
-    console.log(values)
+    
+})
+app.post('/validusers',(req,res)=>{
+    
+    console.log(req.body.created)
 })
 
 app.listen(3001)
