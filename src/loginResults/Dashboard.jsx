@@ -7,13 +7,14 @@ import { dashboard} from '../Reducers/time';
 import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine,RiGitRepositoryCommitsFill} from 'react-icons/ri'
 
 import '../App.css';
-const URL='http://localhost:3001/msginbox'
+const URL='http://localhost:3001/' 
 
 function Dashboard(){
     const[option,setOption]=useState('')
     const msgSend=useSelector((state)=>state.primeReducer.name)
     const newMessage = useSelector((state)=>state.primeReducer.mensaje)
     const dispatch=useDispatch()
+    const[garbage,setGarbage]=useState([])
     const[dataMsg,setDataMsg]=useState([])
     let navigate= useNavigate()
     function mensajes(){ //bandeja de entrada
@@ -36,12 +37,17 @@ function Dashboard(){
         navigate('/new')
     }
     function dating(){
-        fetch(`${URL}`)
+        fetch(`${URL}msginbox`)
         .then(response=>response.json())
         .then(data=>setDataMsg(data))
     }
+    function noSendMsgs(){
+        fetch(`${URL}garbage`)
+        .then(response=>response.json())
+        .then(data=>setGarbage(data))
+    }
     useEffect(()=>{
-        
+        noSendMsgs()
         dating()
     },[])
     const newsData= dataMsg.slice(dataMsg.length-6,dataMsg.length).reverse()
@@ -93,7 +99,8 @@ function Dashboard(){
                 {option === 'enviado' && newsData.map((e,i)=>{
                     return <p key={i}>{e.bodycontent}</p>
                 })}
-                {option === 'borrados' && <p>Mensaje no enviado</p>}
+                {option === 'borrados' && <p>{garbage[1].id}
+                {console.log(garbage)}</p>}
             </div>
         </div>
 
@@ -159,13 +166,13 @@ const Welcome = styled.div`
             left: 48%;
         }        
        .emailsf{
-           outline: 2px solid black;
+          // outline: 2px solid black;
            position:  relative;
            height: 400px;
-
+           border-top: 1px solid black ;
        }
        .child{
-           outline: 2px solid black;
+          // outline: 2px solid black;
            width: 250px;
            height: 400px;
            position: absolute;
@@ -179,11 +186,11 @@ const Welcome = styled.div`
            background: #beb4b4;
            font-size: 19px;
            cursor: pointer;
+           border: 1px solid #db750fca;
             
        }
-       .mensajes{
-           
-           width: 1100px;
+       .mensajes{           
+           width: 1080px;
            position: absolute;
            left: 250px;
            height: 342px;
@@ -235,13 +242,9 @@ const ButtonMsg=styled.button`
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
-        .colorchange{
-         
-        background-image: linear-gradient(90deg, #06beb6, #48b1bf);
-      
-        
-      
-    }
+        .colorchange{         
+        background-image: linear-gradient(90deg, #06beb6, #48b1bf);          
+     }
     }
     
 `

@@ -58,9 +58,19 @@ const msgNoSendIt=async(adress,subject,bodycontent)=>{
             console.log(error)
     }
 }
+const dataNoSend=async()=>{
+    try {
+        const sqlCommand= 'SELECT * FROM nosend '
+        const response= await dataBaseRequire.query(sqlCommand)
+        return response.rows
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 module.exports={
     putMsg,
     allDataMsg,
-    msgNoSendIt
+    msgNoSendIt,
+    dataNoSend
 }

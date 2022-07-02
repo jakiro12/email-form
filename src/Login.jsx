@@ -41,18 +41,21 @@ function Form() {
         
       }
       const valor = validar(login,contra) 
-       
-  return (
-    <div className="container">
-  
-      <div>
-        <p>Valid email:lautaro@hotmail.com</p>
-        <p>Valid Password: 1234</p>
-      </div>
-      <pre>
-        <p>{login}</p>
-        <p>{contra}</p>
-      </pre>      
+       let heightW = `${document.documentElement.clientHeight}px`
+       let widthW= `${document.documentElement.clientWidth}px`
+  return (<DivPage wmax={widthW} hmax={heightW}>
+  <DivInfo> <div className="info">
+    <section>
+      <h2>Kiwemail</h2>
+      <p>un servicio de mensajeria de nivel local con almacenamiento de base de datos</p>
+    </section>
+    </div>
+    <div className="msgbox">
+     </div><div className="tri"> 
+     <div className="tri2"></div>      
+      </div> </DivInfo>
+    <DivForm>
+    <div className="container">              
       <form onSubmit={handleSubmit}>
         <input type='text' placeholder="user" name="saludo" autoComplete="off" value={login} onChange={(e)=>setLogin(e.target.value)}>
         </input>
@@ -63,6 +66,8 @@ function Form() {
       </form>
       
     </div>
+    </DivForm>
+    </DivPage>
   );
 }
 export default Form
@@ -77,4 +82,75 @@ const RegisterButton = styled.button`
 const DivAlert= styled.div`
   height: 25px;
   margin-bottom: 40px;
+`
+const DivPage=styled.div`
+  display: inline-flexbox;
+  width: ${props=>props.wmax };
+  height: ${props=>props.hmax};
+`
+const DivInfo=styled.div`
+  width: 45%;
+  height: 100vh;
+  
+  background: #fff;
+  div{
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    width: 200px;
+  }
+  .msgbox{
+    border-radius: 10px;
+    height: 150px;
+    width: 200px;
+    top: 60%;
+    background: #0DFC7D;
+    transform: rotateZ(45deg);
+  }
+  .tri{
+    position: absolute;
+    background: white;
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 26.5%;
+    border-radius: 10px;    
+  }
+  .tri2{
+    width: 120px;
+    height: 120px;
+    background-color: #3AB5E9;
+    position: absolute;
+    top: 10%;
+    left: 10%; 
+    border-radius: 10px;
+  }
+  
+  
+  
+`
+const DivForm=styled.div`
+  //outline: 2px solid black;
+  width: 55%;
+  .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 30px 0 #3AB5E9;
+  height: 50vh;
+  max-width: 500px;  
+  margin: auto;
+  text-align: center;
+  margin-top: 25%;
+  }
+  .container > form {
+  width: 70%;
+  border: transparent;
+  padding: 20px;
+  border-radius: 5px;
+  background: #0DFC7D;
+  display: grid;
+  font-size: 20px;
+}
 `
