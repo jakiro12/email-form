@@ -1,25 +1,46 @@
 import styled from "styled-components";
-
+import { useState } from "react";
+import { profile } from "../Reducers/time";
+import { useDispatch } from "react-redux";
+import {useNavigate} from 'react-router-dom';
 
 
 const UserInformation = () => {
+ const [name,setName]=useState('')
+ const [phone,setPhone]=useState('')
+ const [job,setJob]=useState('')
+ const [location,setLocation]=useState('')
+ const dispatch=useDispatch()
+ const navigate=useNavigate()
  
 
-
+  function nameValue(e){
+    e.preventDefault()
+   const newInfo={
+    nom:name,
+    po:phone,
+    work:job,
+    city:location
+   }
+   
+    dispatch(profile({newInfo}))
+    navigate('/profile')
+  }
  
  return (<Container>
   <div className="info" >Formulario para cambiar la informacion personal
 
   </div>
  
-  <FormNewData>
+  <FormNewData onSubmit={nameValue}>
     <div>
-    <input type="text" placeholder="nombre" />
-    <input type="text" placeholder="telefono"/>
-    <input type="text" placeholder="cargo"/>
-    <input type="text"  placeholder="ubicacion"/>
+    <input type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="nombre" />
+    <input type="text" value={phone} onChange={(e)=>setPhone(e.target.value)} placeholder="telefono"/>
+    <input type="text" value={job} onChange={(e)=>setJob(e.target.value)} placeholder="cargo"/>
+    <input type="text" value={location} onChange={(e)=>setLocation(e.target.value)} placeholder="ubicacion"/>
    <button type="submit" className="btn">Cambiar</button>
     </div>
+    
   </FormNewData>
   
 </Container>
@@ -49,7 +70,7 @@ const FormNewData= styled.form`
     width: 92px;
     outline: 2px solid blue;
     outline-offset: -2px;
-    transition: outline-offset 210ms ease;
+    transition: outline-offset 150ms ease;
    }
    .btn:hover{
     outline-offset: -5px;

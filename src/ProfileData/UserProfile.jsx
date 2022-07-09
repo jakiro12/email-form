@@ -1,9 +1,14 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import {useNavigate} from 'react-router-dom';
 
 function UserProfile(){
+    const navigate=useNavigate()
+    const newInformation= useSelector((state)=>state.primeReducer.newProfileValues[0])
     const user = useSelector((state)=>state.primeReducer.email) //busca en el initialState del Slice
-    return(<>
+  
+  
+  return(<>
        <Section >        
             <DivProfile className="portada">    
             <div>          
@@ -11,22 +16,22 @@ function UserProfile(){
                     </div>  
              </DivProfile>        
         <div className="body">
-            <div className="perfil-usuario-bio">
-                <h3 className="titulo">Lautaro Elias</h3>
-                
+            <div className="perfil-bio">
+                <h3 className="titulo">{newInformation === undefined ? 'Lautaro Elias' : newInformation.newInfo.nom}</h3>
+                <button onClick={()=>navigate('/info')}>Cambiar Datos</button>
             </div>
-            <div className="perfil-usuario-footer">
+            <div >
                 <ul className="lista-datos">
-                    <li><i className="icono fas fa-map-signs"></i> Direccion de usuario:{user.hi}</li>
-                    <li><i className="icono fas fa-phone-alt"></i> Telefono: 342-4123456</li>
-                    <li><i className="icono fas fa-briefcase"></i> Trabaja en: AWS</li>
-                    <li><i className="icono fas fa-building"></i> Cargo: Junior Developer</li>
+                    <li> Direccion de usuario:{user.hi}</li>
+                    <li>Telefono:{newInformation === undefined ? '3424123456' : newInformation.newInfo.po}  </li>
+                    <li> Trabaja en: {newInformation === undefined ? 'AWS' : newInformation.newInfo.work}</li>
+                    <li> Cargo: Junior Developer</li>
                 </ul>
                 <ul className="lista-datos">
-                    <li><i className="icono fas fa-map-marker-alt"></i> Ubicacion: Argentina</li>
-                    <li><i className="icono fas fa-calendar-alt"></i> Fecha nacimiento: 29/03/1993</li>
-                    <li><i className="icono fas fa-user-check"></i> Registro.</li>
-                    <li><i className="icono fas fa-share-alt"></i> <a href="https://www.facebook.com">Redes sociales.</a></li>
+                    <li> Ubicacion: {newInformation === undefined ? 'Argentina' : newInformation.newInfo.city}</li>
+                    <li> Fecha nacimiento: 29/03/1993</li>
+                    <li> Registro.</li>
+                    <li> <a href="https://www.facebook.com">Redes sociales.</a></li>
                 </ul>
             </div>
           
@@ -54,6 +59,11 @@ const Section = styled.section`
     }
     h3{
         margin-left: 10px;
+    }
+    button{
+        position: absolute;
+        top: 50%;
+        left: 65%;
     }
 `
 const DivProfile= styled.div`
