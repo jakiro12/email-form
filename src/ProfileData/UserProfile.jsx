@@ -16,18 +16,18 @@ function UserProfile(){
                     </div>  
              </DivProfile>        
         <div className="body">
-            <div className="perfil-bio">
-                <h3 className="titulo">{newInformation === undefined ? 'Lautaro Elias' : newInformation.newInfo.nom}</h3>
+            <div>
+                <h3>{newInformation === undefined ? 'Lautaro Elias' : newInformation.newInfo.nom}</h3>
                 <button onClick={()=>navigate('/info')}>Cambiar Datos</button>
             </div>
             <div >
-                <ul className="lista-datos">
+                <ul>
                     <li> Direccion de usuario:{user.hi}</li>
                     <li>Telefono:{newInformation === undefined ? '3424123456' : newInformation.newInfo.po}  </li>
                     <li> Trabaja en: {newInformation === undefined ? 'AWS' : newInformation.newInfo.work}</li>
                     <li> Cargo: Junior Developer</li>
                 </ul>
-                <ul className="lista-datos">
+                <ul>
                     <li> Ubicacion: {newInformation === undefined ? 'Argentina' : newInformation.newInfo.city}</li>
                     <li> Fecha nacimiento: 29/03/1993</li>
                     <li> Registro.</li>
@@ -64,6 +64,12 @@ const Section = styled.section`
         position: absolute;
         top: 50%;
         left: 65%;
+        cursor: pointer;
+        border: transparent;
+        border-radius: 4px;
+        height: 18px;
+        color: #fff;
+        background: linear-gradient(to right, hsl(240, 70%, 50%),hsl(240,10%,40%));
     }
 `
 const DivProfile= styled.div`

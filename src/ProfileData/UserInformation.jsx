@@ -28,7 +28,7 @@ const UserInformation = () => {
   }
  
  return (<Container>
-  <div className="info" >Formulario para cambiar la informacion personal
+  <div className="info" >Formulario para cambiar los datos personales
 
   </div>
  
@@ -53,22 +53,26 @@ const FormNewData= styled.form`
    margin-top: 15px;
    div{
     width: 400px;
+   
    }
    input{
     display: grid;
     margin-top: 5px;
     width: 50%;
-    background: white;
+    background: transparent;
     outline: 2px solid black;
     margin-left: 25%;
+    }
+   input::placeholder{
+    color: #646262;
    }
    .btn{
     cursor: pointer;
     background: none;
-    border: 2px solid blue;
+    border: 2px solid #940004;
     height: 25px;
     width: 92px;
-    outline: 2px solid blue;
+    outline: 2px solid #940004;
     outline-offset: -2px;
     transition: outline-offset 150ms ease;
    }
@@ -83,6 +87,7 @@ const Container= styled.div`
   margin-top: 10%;
   height: 50vh;
   border: none;
+  background: linear-gradient(90deg,#25d855,#fff);
   box-shadow: 1px 1px 0px #999,
                 2px 2px 0px #999,
                 3px 3px 0px #999,

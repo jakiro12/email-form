@@ -97,7 +97,7 @@ function Dashboard(){
                     <p>spam 3</p>
                     </section>}
                 {option === 'enviado' && newsData.map((e,i)=>{
-                    return <p key={i}>{e.bodycontent}</p>
+                    return <div className='box-send' key={i}><p>{e.bodycontent} <button className='btn-delete'>X</button></p>  </div>
                 })}
                 {option === 'borrados' && <p>{garbage[1].id}
                 {console.log(garbage)}</p>}
@@ -224,7 +224,18 @@ const Welcome = styled.div`
         top: 15px;
         text-align: center;
        }
-        
+       .btn-delete{
+        height: 24px;
+        width: 30px;
+        text-align: center;       
+        position: absolute;
+        top: 35%;
+        left: 90%;
+        cursor: pointer;
+       }
+       .box-send{
+        position: relative;
+       }
 `
 const ButtonMsg=styled.button` 
     border: none;    
