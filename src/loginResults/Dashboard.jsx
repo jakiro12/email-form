@@ -51,6 +51,16 @@ function Dashboard(){
         dating()
     },[])
     const newsData= dataMsg.slice(dataMsg.length-6,dataMsg.length).reverse()
+    const deleteMsgSend=(adr)=>{        
+        fetch(`${URL}deletedata`,{
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({command:adr})
+        })
+    }
+   
     return(
     <>
     <Navigator>
@@ -97,13 +107,14 @@ function Dashboard(){
                     <p>spam 3</p>
                     </section>}
                 {option === 'enviado' && newsData.map((e,i)=>{
-                    return <div className='box-send' key={i}><p>{e.bodycontent} <button className='btn-delete'>X</button></p>  </div>
+                    return <div className='box-send' key={i}>
+                        <p>{e.bodycontent} <button className='btn-delete' onClick={()=>deleteMsgSend(e.addressee)}>Borrar</button></p>  </div>
                 })}
                 {option === 'borrados' && <p>{garbage[1].id}
                 {console.log(garbage)}</p>}
             </div>
         </div>
-
+                {console.log(newsData)}
     </Welcome>
     </>)
 }
@@ -226,12 +237,16 @@ const Welcome = styled.div`
        }
        .btn-delete{
         height: 24px;
-        width: 30px;
+        width: 50px;
         text-align: center;       
         position: absolute;
         top: 35%;
         left: 90%;
         cursor: pointer;
+        background: #3605A8;
+        color: white;
+        border: none;
+        border-radius: 5px;
        }
        .box-send{
         position: relative;
