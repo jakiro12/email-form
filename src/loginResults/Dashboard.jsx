@@ -11,8 +11,7 @@ const URL='http://localhost:3001/'
 
 function Dashboard(){
     const[option,setOption]=useState('')
-    const msgSend=useSelector((state)=>state.primeReducer.name)
-    const newMessage = useSelector((state)=>state.primeReducer.mensaje)
+    const msgSend=useSelector((state)=>state.primeReducer.name)   
     const dispatch=useDispatch()
     const[garbage,setGarbage]=useState([])
     const[dataMsg,setDataMsg]=useState([])
@@ -49,6 +48,7 @@ function Dashboard(){
     useEffect(()=>{
         noSendMsgs()
         dating()
+        deleteMsgSend()
     },[])
     const newsData= dataMsg.slice(dataMsg.length-6,dataMsg.length).reverse()
     const deleteMsgSend=(adr)=>{        
@@ -62,7 +62,7 @@ function Dashboard(){
     }
    
     return(
-    <>
+    <>{console.log(newsData)}
     <Navigator>
         <h2>User Menu</h2>
         <div>
@@ -90,12 +90,12 @@ function Dashboard(){
             </div>
             <div className='mensajes'>
                 {option === 'entrada' && <section>
-                    <p>   {dataMsg.length !==0 ? dataMsg[0].bodycontent : 'sin mensajes'}</p>
-                    <p>{dataMsg.length !==0 ? dataMsg[1].bodycontent : 'sin mensajes'}</p>
-                    <p>mensaje 1 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
-                    <p>mensaje 1 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
-                    <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
-                    <p>mensaje 3 {newMessage ? newMessage[0].newMsgSend : 'sin mensajes'}</p>
+                    <p> holaa     </p>
+                    <p> hlladkljasd</p>
+                    <p>mensaje 1 </p>
+                    <p>mensaje 1 </p>
+                    <p>mensaje 3 </p>
+                    <p>mensaje 3 </p>
                     </section>}
                 {option === 'empty' && <p>{msgSend.option}</p>}
                 {option === 'no deseado' && <section>
@@ -108,13 +108,13 @@ function Dashboard(){
                     </section>}
                 {option === 'enviado' && newsData.map((e,i)=>{
                     return <div className='box-send' key={i}>
-                        <p>{e.bodycontent} <button className='btn-delete' onClick={()=>deleteMsgSend(e.addressee)}>Borrar</button></p>  </div>
+                        <p>{e.bodycontent} <button className='btn-delete' onClick={()=>deleteMsgSend(e)}>Borrar</button></p>  </div>
                 })}
-                {option === 'borrados' && <p>{garbage[1].id}
-                {console.log(garbage)}</p>}
+                {option === 'borrados' && <p>{garbage[1].bodycontent}
+                </p>}
             </div>
         </div>
-                {console.log(newsData)}
+              
     </Welcome>
     </>)
 }

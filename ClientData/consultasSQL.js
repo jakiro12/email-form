@@ -67,12 +67,14 @@ const dataNoSend=async()=>{
         console.log(error)
     }
 }
+
 const deleteMsgSend=async(dataMsg)=>{
     try {
-        const sqlCommand='delete from inbox where addressee=$1'
         const bodyMsg=[dataMsg]
-        const response= await dataBaseRequire.query(sqlCommand,bodyMsg)
-        console.log(response.command) // verifico que elimina la fila
+        const sqlCommandMove='DELETE FROM inbox WHERE addressee=$1'
+        const firstResponse= await dataBaseRequire.query(sqlCommandMove,bodyMsg)
+         console.log(firstResponse.command)
+        // verifico que elimina la fila
     } catch (error) {
             console.log(error)
     }
@@ -82,6 +84,6 @@ module.exports={
     putMsg,
     allDataMsg,
     msgNoSendIt,
-    dataNoSend,
+    dataNoSend,   
     deleteMsgSend
 }

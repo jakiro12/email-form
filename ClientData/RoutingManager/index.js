@@ -1,7 +1,7 @@
 const express= require('express')
 const app= express()
 const cors=require('cors')
-const {putMsg,allDataMsg,msgNoSendIt,dataNoSend,deleteMsgSend}= require('../consultasSQL') // esto pasa con modules exports :D
+const {putMsg,allDataMsg,msgNoSendIt,dataNoSend,deleteMsgSend,copyMsg}= require('../consultasSQL') // esto pasa con modules exports :D
 //middlewares-- se ejecutan antes de llegar a las rutas :D
 app.use(express.json()) //convierte datos para usar en JS
 // app.use(express.urlencoded({extended:false})) //para cuando llegan datos de un formulario los convierte a un objeto
@@ -43,7 +43,8 @@ app.get('/garbage',async(req,res)=>{
 app.post('/deletedata',(req,res)=>{
    
     let allMsg=req.body.command
-    deleteMsgSend(allMsg)
+   msgNoSendIt(allMsg.addressee,allMsg.subject,allMsg.bodycontent)
+   deleteMsgSend(allMsg.addressee)
     console.log(allMsg)
 })
 app.listen(3001)
