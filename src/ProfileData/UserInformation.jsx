@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { profile } from "../Reducers/time";
 import { useDispatch } from "react-redux";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,NavLink} from 'react-router-dom';
 
 
 const UserInformation = () => {
@@ -42,7 +42,7 @@ const UserInformation = () => {
     </div>
     
   </FormNewData>
-  
+  <NavLink to='/page' className='back'>Volver</NavLink>
 </Container>
  )
 }
@@ -98,5 +98,11 @@ const Container= styled.div`
   margin-left: 30%;
   .info{
     margin-top: 10px;
+  }
+  .back{
+    
+    width: 70px;
+    height: 20px;
+    margin-left: 42%;
   }
 `

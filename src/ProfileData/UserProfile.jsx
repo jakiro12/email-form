@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,NavLink} from 'react-router-dom';
 
 function UserProfile(){
     const navigate=useNavigate()
@@ -36,8 +36,9 @@ function UserProfile(){
             </div>
           
         </div>
+        <NavLink to='/page' className='back'>Volver</NavLink>
     </Section>
-    
+   
     </>
     )
 }
@@ -70,6 +71,12 @@ const Section = styled.section`
         height: 18px;
         color: #fff;
         background: linear-gradient(to right, hsl(240, 70%, 50%),hsl(240,10%,40%));
+    }
+    .back{
+        position: absolute;
+        bottom: 0;
+        right: 0;        
+        font-size: 25px;
     }
 `
 const DivProfile= styled.div`

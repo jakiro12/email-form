@@ -23,7 +23,7 @@ function Register(){
         })
         navigate('/')
     }else{
-        setAlert('short username')
+        setAlert('short username or password')
     }
      
         

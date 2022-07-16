@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useState,useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useDispatch} from "react-redux";
 import { loginUser } from "./Reducers/time";
@@ -6,48 +6,52 @@ import styled from "styled-components";
 
 
 import "./App.css";
-
+const URL='http://localhost:3001/emailsvalue'
 function Form() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const[login,setLogin]=useState('')
   const[contra,setContra]=useState('')
- 
+  const[data,setData]=useState([])
   
- 
+  const validData=()=>{
+    fetch(URL)
+    .then(res=>res.json())
+    .then(info=>setData(info))
+  }
+ useEffect(()=>{
+  validData()
+ },[])
    //if(login === 'hola' ) setLogin('hola gente') ejemplo de condicional sin necesidad de funcion
 
   function handleSubmit(e){
     e.preventDefault();
     const hi= e.target.saludo.value //target. nombre del input . value
-    const ingresa= e.target.pass.value // los mismo pero para le password
-    
+    const ingresa= e.target.pass.value // los mismo pero para le password    
     getIn(hi,ingresa) 
-    dispatch(loginUser({hi}))
+    dispatch(loginUser({hi}))    
     
   }
-  const getIn=(hello,dataPass)=>{
-    let email= 'lautaro@hotmail.com'
-    let validPassword= '1234'
-      
-    if( hello === email && dataPass === validPassword  ) navigate('/page')
-     else navigate('/wrong')
+  const getIn=(userMail,dataPass)=>{  
+    const findEmail= data.filter(e=> e.email===userMail)
+    let pass= findEmail[0].password
+    if( dataPass===pass){
+      navigate('/page')
+    }else{
+      navigate('/wrong')
+    }
+   
+    
       }
-
-      function validar(a,b){
-        let passData= Number(b)
-        if(!a.includes('@') ||  !passData ) return <p>Invalid Data </p>
+     
       
-        
-      }
-      const valor = validar(login,contra) 
        let heightW = `${document.documentElement.clientHeight}px`
        let widthW= `${document.documentElement.clientWidth}px`
   return (<DivPage wmax={widthW} hmax={heightW}>
   <DivInfo> <div className="info">
     <section>
       <h2>Kiwemail</h2>
-      <p>un servicio de mensajeria de nivel local con almacenamiento de base de datos</p>
+      <p>Servicio de mensajeria a nivel local con almacenamiento de base de datos</p>
     </section>
     </div>
     <div className="msgbox">
@@ -60,11 +64,11 @@ function Form() {
         <input type='text' placeholder="user" name="saludo" autoComplete="off" value={login} onChange={(e)=>setLogin(e.target.value)}>
         </input>
         <input type='password' name='pass' placeholder="password" value={contra} onChange={(e)=>setContra(e.target.value)}></input>
-        <button type="submit" className="boton" disabled={valor ? true : false} >Find</button>
-        <DivAlert>{valor} </DivAlert>  
+        <button type="submit" className="boton">Find</button>
+        <DivAlert> </DivAlert>  
         <RegisterButton onClick={()=>navigate('/newuser')} > Register </RegisterButton>     
       </form>
-      
+    
     </div>
     </DivForm>
     </DivPage>
@@ -90,14 +94,16 @@ const DivPage=styled.div`
 `
 const DivInfo=styled.div`
   width: 45%;
-  height: 100vh;
-  
+  height: 100vh;  
   background: #fff;
   div{
     position: absolute;
     top: 25%;
     left: 20%;
     width: 200px;
+  }
+  h2{
+    font-family: 'Edu SA Beginner', cursive;
   }
   .msgbox{
     border-radius: 10px;

@@ -79,11 +79,33 @@ const deleteMsgSend=async(dataMsg)=>{
             console.log(error)
     }
 }
+const deleteFromInbox=async(dataMsg)=>{
+    try {
+        const bodyMsg=[dataMsg]
+        const sqlCommand='DELETE FROM nosend WHERE addressee=$1'
+        const response = await dataBaseRequire.query(sqlCommand,bodyMsg)
+        console.log(response.command)
+    } catch (error) {
+        console.log(error)
+    }
+}
+const allEmailsData=async()=>{
+    try {
+        const sqlCommand='SELECT * FROM users'
+        const response= await dataBaseRequire.query(sqlCommand)
+        return response.rows
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 module.exports={
     putMsg,
     allDataMsg,
     msgNoSendIt,
     dataNoSend,   
-    deleteMsgSend
+    deleteMsgSend,
+    putEmails,
+    allEmailsData,
+    deleteFromInbox
 }

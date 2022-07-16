@@ -50,6 +50,7 @@ function Dashboard(){
         dating()
         deleteMsgSend()
     },[])
+    const newGarbage= garbage.slice(garbage.length-6,garbage.length).reverse()
     const newsData= dataMsg.slice(dataMsg.length-6,dataMsg.length).reverse()
     const deleteMsgSend=(adr)=>{        
         fetch(`${URL}deletedata`,{
@@ -60,9 +61,18 @@ function Dashboard(){
             body:JSON.stringify({command:adr})
         })
     }
+    const reSendMsg=(adr)=>{        
+        fetch(`${URL}resenddata`,{
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({command:adr})
+        })
+    }
    
     return(
-    <>{console.log(newsData)}
+    <>
     <Navigator>
         <h2>User Menu</h2>
         <div>
@@ -72,11 +82,21 @@ function Dashboard(){
         </div>
     </Navigator>
     <Welcome>    
-        Welcome!  
-        
+              
         <div className='contenedor'>
-            <div className="carga"></div>
+            <Ball></Ball>
+            <Ball className='two'></Ball>
+            <Ball className='three'></Ball>
+            <Ball className='fourth'></Ball>
+            <Ball className='five'></Ball>
+            <Ball className='six'></Ball>
+            <Ball className='seven'></Ball>
+            <Ball className='eigth'></Ball>
+            <Ball className='nine'></Ball>
+            <Ball className='ten'></Ball>
+            <Ball className='eleven'></Ball>
             </div>
+           
         <div className='emailsf'>
            <div className='sendbutton'> <ButtonMsg  onClick={completeNewMsg}> <RiGitRepositoryCommitsFill className='colorchange'/>  Nuevo Mensaje</ButtonMsg>
            </div>
@@ -90,28 +110,31 @@ function Dashboard(){
             </div>
             <div className='mensajes'>
                 {option === 'entrada' && <section>
-                    <p> holaa     </p>
-                    <p> hlladkljasd</p>
-                    <p>mensaje 1 </p>
-                    <p>mensaje 1 </p>
+                    <p> mensaje 1     </p>
+                    <p>mensaje 2</p>
                     <p>mensaje 3 </p>
-                    <p>mensaje 3 </p>
+                    <p>mensaje 4 </p>
+                    <p>mensaje 5 </p>
+                    <p>mensaje 6 </p>
                     </section>}
                 {option === 'empty' && <p>{msgSend.option}</p>}
                 {option === 'no deseado' && <section>
                     <p>spam 1</p>
                     <p>spam 2</p>
-                    <p>spam 1</p>
-                    <p>spam 1</p>
                     <p>spam 3</p>
-                    <p>spam 3</p>
+                    <p>spam 4</p>
+                    <p>spam 5</p>
+                    <p>spam 6</p>
                     </section>}
                 {option === 'enviado' && newsData.map((e,i)=>{
                     return <div className='box-send' key={i}>
                         <p>{e.bodycontent} <button className='btn-delete' onClick={()=>deleteMsgSend(e)}>Borrar</button></p>  </div>
                 })}
-                {option === 'borrados' && <p>{garbage[1].bodycontent}
-                </p>}
+                {option === 'borrados' && newGarbage.map((e,i)=>{
+                    return <div className='box-send' key={i}>
+                        <p>{e.bodycontent} <button className='btn-delete' onClick={()=>reSendMsg(e)}>Reenv</button></p>  </div>
+                })}
+              
             </div>
         </div>
               
@@ -149,10 +172,7 @@ border-radius: 15px 0 15px 0;
        
     }   
 `
-const rotate= keyframes`
-    from{transform:rotate(0deg);}
-            to{transform:rotate(360deg);}
-`
+
 const Welcome = styled.div`
     display: grid;
     align-items: center;
@@ -161,27 +181,69 @@ const Welcome = styled.div`
   text-align:  center;
   height: 100vh;
   
-    .contenedor{    
-            animation: ${rotate} 1s linear infinite;
-            transform: translateZ(0);  
-            border-top: 8px solid blueviolet;
-            border-right: 8px solid blueviolet;
-            border-bottom: 8px solid blueviolet;
-            border-left: 8px solid black;
+    .contenedor{                
             background: transparent;
-            width: 74px;
-            height:74px;
-            border-radius: 50%;  
+            width: 150px;
+            height:150px;           
             position:relative ;
-            top: -20px;
-            left: 48%;
-        }        
+            top: 10px;
+            left: 45%;
+            
+        } 
+        .two{
+          position: absolute;
+          top: 35px;
+        }
+        .three{
+            position: absolute;
+          top: 70px;
+        }   
+        .fourth{
+            position: absolute;
+            top: 105px;
+        } 
+        .five{
+            position: absolute;
+            top: 15px;
+            left: 33px;
+        }
+        .six{
+            position: absolute;
+            top: 35px;
+            left: 65px;
+        }
+        .seven{
+            position: absolute;
+            top: 15px;
+            left: 97px;
+        }
+        .eigth{
+            position: absolute;
+            top: 0px;
+            left: 130px;
+        }
+        .nine{
+            position: absolute;
+            top: 35px;
+            left: 130px;
+        }
+        .ten{
+            position: absolute;
+            top: 70px;
+            left: 130px;
+        }
+        .eleven{
+            position: absolute;
+            top: 105px;
+            left: 130px;
+        }
        .emailsf{
           // outline: 2px solid black;
            position:  relative;
            height: 400px;
            border-top: 1px solid black ;
        }
+       
        .child{
           // outline: 2px solid black;
            width: 250px;
@@ -273,4 +335,23 @@ const ButtonMsg=styled.button`
      }
     }
     
+`
+
+const anime= keyframes`
+    0%{
+        opacity: 0;
+       
+    }
+    100%{
+        opacity: 1;
+        
+    }
+`
+
+const Ball= styled.div`
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    background: #3605A8;
+    animation: ${anime} 1s infinite;
 `

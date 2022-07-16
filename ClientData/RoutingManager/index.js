@@ -1,7 +1,7 @@
 const express= require('express')
 const app= express()
 const cors=require('cors')
-const {putMsg,allDataMsg,msgNoSendIt,dataNoSend,deleteMsgSend,copyMsg}= require('../consultasSQL') // esto pasa con modules exports :D
+const {putMsg,allDataMsg,msgNoSendIt,dataNoSend,deleteMsgSend,putEmails,allEmailsData,deleteFromInbox}= require('../consultasSQL') // esto pasa con modules exports :D
 //middlewares-- se ejecutan antes de llegar a las rutas :D
 app.use(express.json()) //convierte datos para usar en JS
 // app.use(express.urlencoded({extended:false})) //para cuando llegan datos de un formulario los convierte a un objeto
@@ -32,20 +32,34 @@ app.get('/msginbox',async(req,res)=>{
     res.json(values)
     
 })
-app.post('/validusers',(req,res)=>{
-    
-    console.log(req.body.created)
+app.post('/validusers',async(req,res)=>{   
+    const emailData=req.body.created
+    console.log(emailData)
+    putEmails(emailData.newEmail,emailData.newPassword)
 })
 app.get('/garbage',async(req,res)=>{
     const noSendMsgs= await dataNoSend()
     res.json(noSendMsgs)
 })
-app.post('/deletedata',(req,res)=>{
-   
-    let allMsg=req.body.command
-   msgNoSendIt(allMsg.addressee,allMsg.subject,allMsg.bodycontent)
-   deleteMsgSend(allMsg.addressee)
-    console.log(allMsg)
+app.post('/deletedata',async(req,res)=>{   
+    const allMsg=req.body.command
+    if(allMsg){
+        deleteMsgSend(allMsg.addressee)
+        msgNoSendIt(allMsg.addressee,allMsg.subject,allMsg.bodycontent)
+        console.log(allMsg)}
+})
+app.get('/emailsvalue',async(req,res)=>{
+    const dataEmails= await allEmailsData()
+    res.json(dataEmails)
+})
+app.post('/resenddata',async(req,res)=>{
+    const msgReSend= req.body.command
+    if(msgReSend){
+        deleteFromInbox(msgReSend.addressee)
+        putMsg(msgReSend.addressee,msgReSend.subject,msgReSend.bodycontent)
+        
+    }
+    console.log(req.body.command)
 })
 app.listen(3001)
 console.log('server 3001')
