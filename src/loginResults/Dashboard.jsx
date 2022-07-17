@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import { dashboard} from '../Reducers/time';
+
 import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine,RiGitRepositoryCommitsFill} from 'react-icons/ri'
 
 import '../App.css';
@@ -84,19 +85,26 @@ function Dashboard(){
     <Welcome>    
               
         <div className='contenedor'>
-            <Ball></Ball>
-            <Ball className='two'></Ball>
-            <Ball className='three'></Ball>
-            <Ball className='fourth'></Ball>
-            <Ball className='five'></Ball>
-            <Ball className='six'></Ball>
-            <Ball className='seven'></Ball>
-            <Ball className='eigth'></Ball>
-            <Ball className='nine'></Ball>
-            <Ball className='ten'></Ball>
-            <Ball className='eleven'></Ball>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            
             </div>
-           
+         
         <div className='emailsf'>
            <div className='sendbutton'> <ButtonMsg  onClick={completeNewMsg}> <RiGitRepositoryCommitsFill className='colorchange'/>  Nuevo Mensaje</ButtonMsg>
            </div>
@@ -128,11 +136,11 @@ function Dashboard(){
                     </section>}
                 {option === 'enviado' && newsData.map((e,i)=>{
                     return <div className='box-send' key={i}>
-                        <p>{e.bodycontent} <button className='btn-delete' onClick={()=>deleteMsgSend(e)}>Borrar</button></p>  </div>
+                        <p>Msg: {e.bodycontent} <button className='btn-delete' onClick={()=>deleteMsgSend(e)}>Borrar</button></p>  </div>
                 })}
                 {option === 'borrados' && newGarbage.map((e,i)=>{
                     return <div className='box-send' key={i}>
-                        <p>{e.bodycontent} <button className='btn-delete' onClick={()=>reSendMsg(e)}>Reenv</button></p>  </div>
+                        <p>Msg:{e.bodycontent} <button className='btn-delete' onClick={()=>reSendMsg(e)}>Reenv</button></p>  </div>
                 })}
               
             </div>
@@ -172,7 +180,14 @@ border-radius: 15px 0 15px 0;
        
     }   
 `
-
+const animate=keyframes`
+    0%{
+        top:100%;
+    }
+    100%{
+       top:0%;
+    }
+`
 const Welcome = styled.div`
     display: grid;
     align-items: center;
@@ -188,55 +203,56 @@ const Welcome = styled.div`
             position:relative ;
             top: 10px;
             left: 45%;
-            
+            outline: 2px solid black;
+            display: flex;
+            justify-content:space-between ;
         } 
-        .two{
-          position: absolute;
-          top: 35px;
+        .ball{
+            width: 8px;
+            height: 8px;            
+            background: radial-gradient(#3605A8,#FFF);  
+            position: relative;
+            animation: ${animate} infinite 1s linear;
+            border-radius:50% ;
         }
-        .three{
-            position: absolute;
-          top: 70px;
-        }   
-        .fourth{
-            position: absolute;
-            top: 105px;
-        } 
-        .five{
-            position: absolute;
-            top: 15px;
-            left: 33px;
+        .ball:nth-child(2){           
+             animation: ${animate} infinite 3s linear;
         }
-        .six{
-            position: absolute;
-            top: 35px;
-            left: 65px;
+        .ball:nth-child(3){
+            animation: ${animate} infinite 1.7s linear;
         }
-        .seven{
-            position: absolute;
-            top: 15px;
-            left: 97px;
+        .ball:nth-child(4){           
+            animation: ${animate} infinite 2s linear;
         }
-        .eigth{
-            position: absolute;
-            top: 0px;
-            left: 130px;
+        .ball:nth-child(5){           
+            animation: ${animate} infinite 1.4s linear;
         }
-        .nine{
-            position: absolute;
-            top: 35px;
-            left: 130px;
+        .ball:nth-child(7){           
+             animation: ${animate} infinite 3s linear;
         }
-        .ten{
-            position: absolute;
-            top: 70px;
-            left: 130px;
+        .ball:nth-child(8){
+            animation: ${animate} infinite 1.7s linear;
         }
-        .eleven{
-            position: absolute;
-            top: 105px;
-            left: 130px;
+        .ball:nth-child(9){           
+            animation: ${animate} infinite 2s linear;
         }
+        .ball:nth-child(10){           
+            animation: ${animate} infinite 1.4s linear;
+        }
+        .ball:nth-child(12){           
+             animation: ${animate} infinite 3s linear;
+        }
+        .ball:nth-child(13){
+            animation: ${animate} infinite 1.7s linear;
+        }
+        .ball:nth-child(14){           
+            animation: ${animate} infinite 2s linear;
+        }
+        .ball:nth-child(15){           
+            animation: ${animate} infinite 1.4s linear;
+        }
+        
+        
        .emailsf{
           // outline: 2px solid black;
            position:  relative;
@@ -337,21 +353,3 @@ const ButtonMsg=styled.button`
     
 `
 
-const anime= keyframes`
-    0%{
-        opacity: 0;
-       
-    }
-    100%{
-        opacity: 1;
-        
-    }
-`
-
-const Ball= styled.div`
-    border-radius: 100%;
-    height: 35px;
-    width: 35px;
-    background: #3605A8;
-    animation: ${anime} 1s infinite;
-`
