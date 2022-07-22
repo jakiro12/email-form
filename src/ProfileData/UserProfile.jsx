@@ -1,21 +1,34 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {useNavigate,NavLink} from 'react-router-dom';
+import { useState } from "react";
 
 function UserProfile(){
     const navigate=useNavigate()
     const newInformation= useSelector((state)=>state.primeReducer.newProfileValues[0])
     const user = useSelector((state)=>state.primeReducer.email) //busca en el initialState del Slice
-  
+    const[images,setImages]=useState([])
+    const uploadPhoto=(fil)=>{       
+         const arr=Array.from(fil) //por si quisiera subir mas de una foto aunque podria usar spred operator
+         const allImg= arr.map((e)=>{
+            return URL.createObjectURL(e)
+         })           
+         setImages(allImg)        
+        }
+    const imgDefault='https://www.dklo.co/DkLMRsT/cfDftOpaytr?u=QY9nNLQ5uo28'
   
   return(<>
        <Section >        
             <DivProfile className="portada">    
             <div>          
-                    <img className="image" src="https://rickandmortyapi.com/api/character/avatar/1.jpeg" alt="img-avatar"/>
+                    <img className="image" src={!images[0] ? imgDefault:images[0]} alt="img-avatar"/>
+                   <label className="pbtn">
+                    <span>+</span>
+                    <Photo type='file' onChange={(e)=>uploadPhoto(e.target.files)} accept="image/jpeg, image/png"/>
+                    </label>
                     </div>  
              </DivProfile>        
-        <div className="body">
+        <div className="body" >
             <div>
                 <h3>{newInformation === undefined ? 'Lautaro Elias' : newInformation.newInfo.nom}</h3>
                 <button onClick={()=>navigate('/info')}>Cambiar Datos</button>
@@ -99,10 +112,27 @@ const DivProfile= styled.div`
   img{
     border-radius: 100%;
     width: 200px;
+    height: 200px;
+    object-fit: cover;
     position: absolute;
     top: 50%;  /* position the top  edge of the element at the middle of the parent */
     left: 50%; /* position the left edge of the element at the middle of the parent */
     transform: translate(-50%, -50%);
   }  
-  
+  .pbtn{
+    border: 1px solid black;
+    border-radius: 2px;
+    background: radial-gradient(#928989,#ffffffc8);
+    position: absolute;
+    text-align: center;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    bottom: 25px;
+    right: 25px;
+  }
+`
+const Photo=styled.input`
+    display: none;
+    cursor: pointer;
 `

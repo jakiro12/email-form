@@ -18,9 +18,11 @@ const Diver=styled.div`
     background: linear-gradient(90deg, rgba(255,0,219,1) 25%, rgba(9,30,121,1) 100%);
     p{
         position: absolute;
-        left: 44%;
+        left: 42%;
         top: 43%;
         font-size: 30px;
+        font-family: 'Alegreya', serif;
+        text-transform: uppercase;
     }
 `
 

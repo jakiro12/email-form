@@ -28,7 +28,7 @@ const UserInformation = () => {
   }
  
  return (<Container>
-  <div className="info" >Formulario para cambiar los datos personales
+  <div className="info" >Cambiar los datos personales
 
   </div>
  

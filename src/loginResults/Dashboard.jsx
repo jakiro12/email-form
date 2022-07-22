@@ -2,8 +2,7 @@ import styled, {keyframes} from 'styled-components';
 import {NavLink} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
-import { dashboard} from '../Reducers/time';
+
 
 import {RiMailLine,RiSendPlane2Line,RiFolderForbidFill,RiDeleteBin6Line,RiStackLine,RiGitRepositoryCommitsFill} from 'react-icons/ri'
 
@@ -11,9 +10,7 @@ import '../App.css';
 const URL='http://localhost:3001/' 
 
 function Dashboard(){
-    const[option,setOption]=useState('')
-    const msgSend=useSelector((state)=>state.primeReducer.name)   
-    const dispatch=useDispatch()
+    const[option,setOption]=useState('')   
     const[garbage,setGarbage]=useState([])
     const[dataMsg,setDataMsg]=useState([])
     let navigate= useNavigate()
@@ -21,8 +18,7 @@ function Dashboard(){
         setOption('entrada')       
     }
     function vacio(){ //elementos eliminados-- se lanza el valor previo del useState al segundo click arroja empty
-        setOption('empty')
-        dispatch(dashboard({option}))
+        setOption('empty')   
     }
     function spam(){ // correo no deseado 
         setOption('no deseado')
@@ -85,6 +81,13 @@ function Dashboard(){
     <Welcome>    
               
         <div className='contenedor'>
+            <div className='letter'>Hello!</div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+            <div class="ball"></div>
+
             <div class="ball"></div>
             <div class="ball"></div>
             <div class="ball"></div>
@@ -125,7 +128,7 @@ function Dashboard(){
                     <p>mensaje 5 </p>
                     <p>mensaje 6 </p>
                     </section>}
-                {option === 'empty' && <p>{msgSend.option}</p>}
+                {option === 'empty' && <p>Eliminados</p>}
                 {option === 'no deseado' && <section>
                     <p>spam 1</p>
                     <p>spam 2</p>
@@ -157,6 +160,7 @@ background: linear-gradient(180deg,#25d855,#fff);
 display: flex;
 align-items: center;
 border: transparent;
+font-family: 'Alegreya', serif;
 border-radius: 15px 0 15px 0;
     h2{
         font-weight: 200;
@@ -198,15 +202,26 @@ const Welcome = styled.div`
   
     .contenedor{                
             background: transparent;
-            width: 150px;
+            width: 380px;
             height:150px;           
             position:relative ;
             top: 10px;
-            left: 45%;
-            outline: 2px solid black;
+            left: 35%;       
             display: flex;
             justify-content:space-between ;
         } 
+        .letter{
+            position: absolute;
+            top: 10px;
+            left: 0px;
+            font-size: 120px;
+            color: #fff;        
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke-width:2.5px ;
+            text-transform: uppercase;
+            font-family: 'Edu SA Beginner', cursive;
+
+        }
         .ball{
             width: 8px;
             height: 8px;            
@@ -251,6 +266,18 @@ const Welcome = styled.div`
         .ball:nth-child(15){           
             animation: ${animate} infinite 1.4s linear;
         }
+        .ball:nth-child(17){           
+             animation: ${animate} infinite 3s linear;
+        }
+        .ball:nth-child(18){
+            animation: ${animate} infinite 1.7s linear;
+        }
+        .ball:nth-child(19){           
+            animation: ${animate} infinite 2s linear;
+        }
+        .ball:nth-child(20){           
+            animation: ${animate} infinite 1.4s linear;
+        }
         
         
        .emailsf{
@@ -258,6 +285,8 @@ const Welcome = styled.div`
            position:  relative;
            height: 400px;
            border-top: 1px solid black ;
+           font-family: 'Alegreya', serif;
+
        }
        
        .child{
@@ -276,6 +305,7 @@ const Welcome = styled.div`
            font-size: 19px;
            cursor: pointer;
            border: 1px solid #db750fca;
+           font-family: 'Alegreya', serif;
             
        }
        .mensajes{           
@@ -295,15 +325,18 @@ const Welcome = styled.div`
             text-align: start;
             text-indent: 10px;  //sangria en textos
             font-size: 44px; 
+            font-family: 'Alegreya', serif;
         }
         .sendbutton{
             height: 58px;
             background: none;
             margin-left: 250px;
             border-bottom: 1px solid black;
+            
         }
         .foldername{
             height:58px;
+          
         }
        .foldername > p{
         border: none;

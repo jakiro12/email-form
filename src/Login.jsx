@@ -30,7 +30,6 @@ function Form() {
     const ingresa= e.target.pass.value // los mismo pero para le password    
     getIn(hi,ingresa) 
     dispatch(loginUser({hi}))    
-    
   }
   const getIn=(userMail,dataPass)=>{  
     const findEmail= data.filter(e=> e.email===userMail)
@@ -39,15 +38,13 @@ function Form() {
       navigate('/page')
     }else{
       navigate('/wrong')
-    }
-   
-    
-      }
-     
+    }   
+      }   
       
        let heightW = `${document.documentElement.clientHeight}px`
        let widthW= `${document.documentElement.clientWidth}px`
-  return (<DivPage wmax={widthW} hmax={heightW}>
+      
+  return (<DivPage wmax={widthW} hmax={heightW} id='name'>
   <DivInfo> <div className="info">
     <section>
       <h2>Kiwemail</h2>
@@ -67,8 +64,7 @@ function Form() {
         <button type="submit" className="boton">Find</button>
         <DivAlert> </DivAlert>  
         <RegisterButton onClick={()=>navigate('/newuser')} > Register </RegisterButton>     
-      </form>
-    
+      </form>   
     </div>
     </DivForm>
     </DivPage>
@@ -96,6 +92,7 @@ const DivInfo=styled.div`
   width: 45%;
   height: 100vh;  
   background: #fff;
+  font-family: 'Alegreya', serif;
   div{
     position: absolute;
     top: 25%;
